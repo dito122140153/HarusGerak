@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WorkoutListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,6 +14,14 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/workout',[WorkoutListController::class,'index'])->name('workoutlist.index');
+Route::get('/profiles',[ProfileController::class,'show'])->name('profile.show');
+Route::post('/profiless',[WorkoutListController::class,'store'])->name('workoutlist.store');
+Route::get('/profiless', function () {
+    return view ('test');
+});
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
