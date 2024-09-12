@@ -6,7 +6,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 
-import BgLogin from "!assets/bg-login.png";
+import BgLogin from "!assets/bg-default2.png";
 import { useAos } from "@/lib/hooks/useAos";
 
 export default function Login({ status, canResetPassword }) {
@@ -36,8 +36,8 @@ export default function Login({ status, canResetPassword }) {
                     alt="Background"
                 />
 
-                <div className="relative z-10 w-full max-w-[60%] p-8 rounded-lg shadow-lg bg-[#232323] backdrop-blur-sm">
-                    <div className="absolute text-center transform -translate-x-1/2 -top-60 left-1/2">
+                <div className="relative z-10 w-full max-w-[60%] p-8 rounded-lg shadow-lg bg-black/50 backdrop-blur-sm">
+                    <div className="absolute mt-10 text-center transform -translate-x-1/2 -top-60 left-1/2">
                         <p
                             data-aos="zoom-in"
                             data-aos-duration="1500"
@@ -63,14 +63,14 @@ export default function Login({ status, canResetPassword }) {
 
                     {/* Form */}
                     {status && (
-                        <div className="mb-4 text-sm font-medium text-green-600">
+                        <div className="text-sm font-medium text-green-600 ">
                             {status}
                         </div>
                     )}
 
                     <form
                         onSubmit={submit}
-                        className="flex flex-col items-center"
+                        className="flex flex-col items-center m-0"
                     >
                         <div>
                             <InputLabel
@@ -148,26 +148,20 @@ export default function Login({ status, canResetPassword }) {
                                 </Link>
                             )}
                         </div>
+                        <PrimaryButton
+                            className="font-extrabold text-[20px] ms-4 mt-2 font-poppins"
+                            disabled={processing}
+                        >
+                            Log In
+                        </PrimaryButton>
                     </form>
                     <div className="absolute text-center transform -translate-x-1/2 left-1/2">
-                        <div
-                            data-aos="zoom-in-down"
-                            data-aos-duration="1500"
-                            className="text-3xl text-[#E2F163] mt-20"
-                        >
-                            <PrimaryButton
-                                className="font-extrabold text-[20px] ms-4 font-poppins"
-                                disabled={processing}
-                            >
-                                Log In
-                            </PrimaryButton>
-                        </div>
                         <p
                             data-aos="fade-up"
                             data-aos-duration="1500"
                             className="mt-24 font-light text-white text-md font-poppins"
                         >
-                            Don't have an account?{" "}
+                            Don't have an account?
                             <Link
                                 href={route("register")}
                                 className="text-[#E2F163] hover:text-white hover:underline"
