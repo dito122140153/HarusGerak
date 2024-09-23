@@ -56,4 +56,13 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+
+                // Route untuk pre-dashboard
+    Route::get('predashboard', [PredashboardController::class, 'show'])
+                ->name('predashboard');
+
+    // Route dashboard sebagai halaman utama setelah pre-dashboard
+    Route::get('dashboard', [DashboardController::class, 'index'])
+                ->name('dashboard');
 });

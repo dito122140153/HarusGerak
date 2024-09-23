@@ -20,7 +20,11 @@ export default function Register() {
         e.preventDefault();
 
         post(route("register"), {
-            onFinish: () => reset("password", "password_confirmation"),
+            onFinish: () => {
+                reset("password", "password_confirmation");
+                // Arahkan ke pre-dashboard setelah sukses
+                window.location.href = route("predashboard");
+            },
         });
     };
 
