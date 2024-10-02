@@ -56,18 +56,44 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
+    public function update(Request $request): RedirectResponse
+{
+    // Validasi input
+    $request->validate([
+        'gender' => 'required',
+        'age' => 'required|integer',
+        'weight' => 'required|numeric',
+        'height' => 'required|numeric',
+        'physical_activity' => 'required|string',
+        'photo' => 'sometimes|nullable|string', // Update photo jika tersedia
+    ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+    try {
+        // Ambil profil berdasarkan user_id
+        $profile = Profile::where('user_id', Auth::user()->id)->first();
+
+        if ($profile) {
+            // Update profil
+            $profile->update([
+                'gender' => $request->gender,
+                'age' => $request->age,
+                'weight' => $request->weight,
+                'height' => $request->height,
+                'physical_activity' => $request->physical_activity,
+                'photo' => $request->photo ?? $profile->photo, // Jika tidak ada foto baru, gunakan foto yang lama
+            ]);
+        } else {
+            // Jika profil tidak ditemukan, Anda dapat memutuskan apakah ingin membuat profil baru atau menampilkan error
+            return redirect()->back()->withErrors(['error' => 'Profil tidak ditemukan']);
         }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit');
+    } catch (\Exception $e) {
+        // Tangkap kesalahan dan kembalikan ke halaman sebelumnya dengan error message
+        return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat memperbarui profil']);
     }
+
+    // Redirect dengan pesan sukses
+    return redirect()->route('dashboard')->with('status', 'Profil berhasil diperbarui');
+}
 
     /**
      * Delete the user's account.
