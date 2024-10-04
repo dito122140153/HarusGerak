@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="POST" action="{{route('profile.store')}}">
+    <form method="POST" action="{{route('profile.update')}}">
         @csrf
 
         <input type="text" name="gender">
