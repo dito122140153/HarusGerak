@@ -4,7 +4,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { AgeScroll } from "@/Components/AgeScroll";
 import { WeightScroll } from "@/Components/WeightScroll";
 import { HeightScroll } from "@/Components/HeightScroll";
-import axios from "axios";
+import { Link } from "@inertiajs/react";
 
 const Predashboard: React.FC = () => {
     const [step, setStep] = useState(1);
@@ -24,21 +24,15 @@ const Predashboard: React.FC = () => {
         setStep((prevStep) => prevStep - 1);
     };
 
+    const dashboard = () => {
+        route("dashboard");
+    };
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value,
         });
-    };
-
-    const submitForm = async () => {
-        try {
-            const response = await axios.post("/api/profile/update", formData);
-            console.log("Profile updated successfully", response.data);
-        } catch (error) {
-            console.error("Error updating profile:", error);
-        }
     };
 
     const renderStep = () => {
@@ -102,7 +96,11 @@ const Predashboard: React.FC = () => {
                         {/* Gender Selection */}
                         <div className="flex mt-10 mb-10 space-x-10 gap-52">
                             <button
-                                className="flex flex-col items-center text-white"
+                                className={`flex flex-col items-center text-white ${
+                                    formData.gender === "Male"
+                                        ? "border-4 border-[#E2F163]"
+                                        : ""
+                                }`}
                                 onClick={() =>
                                     setFormData({ ...formData, gender: "Male" })
                                 }
@@ -136,7 +134,11 @@ const Predashboard: React.FC = () => {
                                 <span className="font-semibold">Male</span>
                             </button>
                             <button
-                                className="flex flex-col items-center text-white"
+                                className={`flex flex-col items-center text-white ${
+                                    formData.gender === "Female"
+                                        ? "border-4 border-[#E2F163]"
+                                        : ""
+                                }`}
                                 onClick={() =>
                                     setFormData({
                                         ...formData,
@@ -144,7 +146,7 @@ const Predashboard: React.FC = () => {
                                     })
                                 }
                             >
-                                <div className="w-44 h-44    bg-[#E2F163] flex items-center justify-center rounded-full mb-2">
+                                <div className="w-44 h-44 bg-[#E2F163] flex items-center justify-center rounded-full mb-2">
                                     <span className="text-4xl">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -177,13 +179,13 @@ const Predashboard: React.FC = () => {
                             className="font-extrabold text-[20px] mt-10 font-poppins"
                             onClick={() => {
                                 nextStep();
-                                submitForm();
                             }}
                         >
                             Continue
                         </PrimaryButton>
                     </div>
                 );
+
             case 3:
                 return (
                     <div className="flex flex-col items-center justify-center w-screen min-h-screen text-white bg-black/90">
@@ -217,7 +219,6 @@ const Predashboard: React.FC = () => {
                             className="font-extrabold text-[20px] mt-44 font-poppins"
                             onClick={() => {
                                 nextStep();
-                                submitForm(); // Panggil fungsi untuk kirim data ke backend
                             }}
                         >
                             Continue
@@ -289,20 +290,22 @@ const Predashboard: React.FC = () => {
                         <div className="-mt-14">
                             <HeightScroll />
                         </div>
-
-                        <PrimaryButton
-                            className="font-extrabold text-[20px] mt-20 font-poppins mr-10"
-                            onClick={() => {
-                                submitForm(); // Kirim data di step terakhir
-                                route("dashboard");
-                            }}
+                        {/* <PrimaryButton
+                            className="font-extrabold text-[20px] mt-44 font-poppins"
+                            onClick={nextStep}
                         >
                             Continue
-                        </PrimaryButton>
+                        </PrimaryButton> */}
+
+                        {/* <Link
+                            href={route("dashboard")}
+                            className="font-extrabold text-[20px] mt-20 font-poppins mr-10"
+                            
+                        >
+                            Continue
+                        </Link> */}
                     </div>
                 );
-            default:
-            // return <div>href={route("dashboard")}</div>;
         }
     };
 
