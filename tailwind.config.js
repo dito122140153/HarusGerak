@@ -66,6 +66,7 @@ export default {
             },
             fontFamily: {
                 poppins: ["Poppins"],
+                leaguespartan: ["LeagueSpartan"],
             },
         },
     },

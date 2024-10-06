@@ -1,8 +1,5 @@
 import { useState } from "react";
-import ApplicationLogo from "@/Components/ApplicationLogo";
-import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
 
 export default function Authenticated({ user, header, children }) {
@@ -10,166 +7,143 @@ export default function Authenticated({ user, header, children }) {
         useState(false);
 
     return (
-        <div className="min-h-screen bg-[#232323]">
-            <nav className="bg-[#232323] border-b border-gray-100">
-                <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
-                        <div className="flex">
-                            <div className="flex items-center shrink-0">
-                                <Link href="/">
-                                    <ApplicationLogo className="block w-auto text-[#896CFE] fill-current h-9" />
-                                </Link>
-                            </div>
-
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex ">
-                                <NavLink 
-                                    href={route("dashboard")}
-                                    active={route().current("dashboard")}
-                                    className="text-[#896CFE] text-xl"
-                                >
-                                    Dashboard
-                                </NavLink>
-                            </div>
-                        </div>
-
-                        <div className="hidden sm:flex sm:items-center sm:ms-6">
-                            <div className="relative ms-3">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-[#896CFE] transition duration-150 ease-in-out bg-[#232323] border border-transparent rounded-md hover:text-gray-700 focus:outline-none"
-                                            >
-                                                {user.name}
-
-                                                <svg
-                                                    className="ms-2 -me-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
-
-                                    <Dropdown.Content>
-                                        <Dropdown.Link
-                                            href={route("profile.edit")}
-                                        >
-                                            Profile
-                                        </Dropdown.Link>
-                                        <Dropdown.Link
-                                            href={route("logout")}
-                                            method="post"
-                                            as="button"
-                                        >
-                                            Log Out
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center -me-2 sm:hidden">
-                            <button
-                                onClick={() =>
-                                    setShowingNavigationDropdown(
-                                        (previousState) => !previousState
-                                    )
-                                }
-                                className="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500"
-                            >
-                                <svg
-                                    className="w-6 h-6"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        className={
-                                            !showingNavigationDropdown
-                                                ? "inline-flex"
-                                                : "hidden"
-                                        }
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                    <path
-                                        className={
-                                            showingNavigationDropdown
-                                                ? "inline-flex"
-                                                : "hidden"
-                                        }
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    className={
-                        (showingNavigationDropdown ? "block" : "hidden") +
-                        " sm:hidden"
-                    }
-                >
-                    <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink
+        <div className="min-h-screen bg-[#1d1d1d] flex">
+            {/* Sidebar */}
+            <nav className="absolute left-0 p-4 transform -translate-y-1/2 bg-[#333333] rounded-r-lg w-28 top-1/2 border-r-8 border-[#896CFE] z-10">
+                <div className="flex flex-col h-full">
+                    <div className="flex items-center justify-center"></div>
+                    {/* Menu Links */}
+                    <div className="flex flex-col space-y-8 place-items-center font-poppins">
+                        <NavLink
                             href={route("dashboard")}
-                            active={route().current("dashboard")}
+                            active={
+                                route().current("dashboard") ||
+                                route().current("beginner") ||
+                                route().current("intermediate") ||
+                                route().current("advance")
+                            }
+                            className={`block py-2 pr-4 text-sm ${
+                                route().current("dashboard") ||
+                                route().current("beginner") ||
+                                route().current("intermediate") ||
+                                route().current("advance")
+                                    ? "text-[#896CFE]"
+                                    : ""
+                            }`}
                         >
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <div className="pt-4 pb-1 border-t border-gray-200">
-                        <div className="px-4">
-                            <div className="text-base font-medium text-gray-800">
-                                {user.name}
+                            <div className="flex flex-col items-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="36"
+                                    height="36"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    className="mb-1"
+                                >
+                                    <path
+                                        stroke="none"
+                                        d="M0 0h24v24H0z"
+                                        fill="none"
+                                    />
+                                    <path d="M10 3.2a9 9 0 1 0 10.8 10.8a1 1 0 0 0 -1 -1h-6.8a2 2 0 0 1 -2 -2v-7a.9 .9 0 0 0 -1 -.8" />
+                                    <path d="M15 3.5a9 9 0 0 1 5.5 5.5h-4.5a1 1 0 0 1 -1 -1v-4.5" />
+                                </svg>
+                                <span>Summary</span>
                             </div>
-                            <div className="text-sm font-medium text-gray-500">
-                                {user.email}
-                            </div>
-                        </div>
+                        </NavLink>
 
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route("profile.edit")}>
-                                Profile
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink
-                                method="post"
-                                href={route("logout")}
-                                as="button"
-                            >
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
+                        <NavLink
+                            href={route("bmi")}
+                            active={route().current("bmi")}
+                            className="block py-2 pr-4 text-sm"
+                        >
+                            <div className="flex flex-col items-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="36"
+                                    height="36"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-calculator"
+                                >
+                                    <path
+                                        stroke="none"
+                                        d="M0 0h24v24H0z"
+                                        fill="none"
+                                    />
+                                    <path d="M4 3m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                                    <path d="M8 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" />
+                                    <path d="M8 14l0 .01" />
+                                    <path d="M12 14l0 .01" />
+                                    <path d="M16 14l0 .01" />
+                                    <path d="M8 17l0 .01" />
+                                    <path d="M12 17l0 .01" />
+                                    <path d="M16 17l0 .01" />
+                                </svg>
+                                <span>BMI</span>
+                            </div>
+                        </NavLink>
+
+                        <NavLink
+                            href={route("tracker")}
+                            active={route().current("tracker")}
+                            className="block py-2 pr-4 text-sm"
+                        >
+                            <div className="flex flex-col items-center">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="36"
+                                    height="36"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    class="icon icon-tabler icons-tabler-outline icon-tabler-math-symbols"
+                                >
+                                    <path
+                                        stroke="none"
+                                        d="M0 0h24v24H0z"
+                                        fill="none"
+                                    />
+                                    <path d="M3 12l18 0" />
+                                    <path d="M12 3l0 18" />
+                                    <path d="M16.5 4.5l3 3" />
+                                    <path d="M19.5 4.5l-3 3" />
+                                    <path d="M6 4l0 4" />
+                                    <path d="M4 6l4 0" />
+                                    <path d="M18 16l.01 0" />
+                                    <path d="M18 20l.01 0" />
+                                    <path d="M4 18l4 0" />
+                                </svg>
+                                <span>Tracker</span>
+                            </div>
+                        </NavLink>
                     </div>
                 </div>
             </nav>
 
-            {header && (
-                <header className="bg-[#232323] shadow v">
-                    <div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        {header}
-                    </div>
-                </header>
-            )}
+            {/* Main Content */}
+            <div className="flex-1">
+                {header && (
+                    <header className="bg-[#1d1d1d]">
+                        <div className="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                            {header}
+                        </div>
+                    </header>
+                )}
 
-            <main>{children}</main>
+                <main>{children}</main>
+            </div>
         </div>
     );
 }

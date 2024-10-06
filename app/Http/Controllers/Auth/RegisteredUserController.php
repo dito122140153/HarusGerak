@@ -46,6 +46,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('profile.store', absolute: false));
+        return redirect()->route('predashboard');
+
     }
 }
