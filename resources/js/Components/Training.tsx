@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "@inertiajs/react";
 import trainingfoto from "../../assets/training-photo.png";
 
 import { Card, CardContent } from "@/Components/ui/card";
@@ -11,11 +12,22 @@ import {
 } from "@/Components/ui/carousel";
 
 export function Training() {
-    // Define content for each training level
     const trainingLevels = [
-        { title: "Beginner", description: "Introduction to basics" },
-        { title: "Intermediate", description: "Building on fundamentals" },
-        { title: "Advanced", description: "Mastering complex concepts" },
+        {
+            title: "Beginner",
+            description: "Introduction to basics",
+            link: "/beginner",
+        },
+        {
+            title: "Intermediate",
+            description: "Building on fundamentals",
+            link: "/intermediate",
+        },
+        {
+            title: "Advanced",
+            description: "Mastering complex concepts",
+            link: "/advance",
+        },
     ];
 
     return (
@@ -27,23 +39,24 @@ export function Training() {
                         className="pl-1 md:basis-1/2 lg:basis-1/3"
                     >
                         <div className="p-1">
-                            <Card className="rounded-md shadow-lg ">
-                                {/* Image Section */}
-                                <img
-                                    src={trainingfoto}
-                                    alt="trainingfoto"
-                                    className="object-cover w-full h-48 rounded-t-md "
-                                />
-                                {/* Content Section */}
-                                <CardContent className="p-4 text-left bg-black/70 rounded-b-md">
-                                    <h3 className="text-[20px] font-bold font-poppins text-[#896CFE]">
-                                        {level.title}
-                                    </h3>
-                                    <p className="text-sm text-gray-400">
-                                        {level.description}
-                                    </p>
-                                </CardContent>
-                            </Card>
+                            <Link href={level.link}>
+                                <Card className="rounded-md shadow-lg cursor-pointer">
+                                    <img
+                                        src={trainingfoto}
+                                        alt="trainingfoto"
+                                        className="object-cover w-full h-48 rounded-t-md "
+                                    />
+
+                                    <CardContent className="p-4 text-left bg-black/70 rounded-b-md">
+                                        <h3 className="text-[20px] font-bold font-poppins text-[#896CFE]">
+                                            {level.title}
+                                        </h3>
+                                        <p className="text-sm text-gray-400">
+                                            {level.description}
+                                        </p>
+                                    </CardContent>
+                                </Card>
+                            </Link>
                         </div>
                     </CarouselItem>
                 ))}

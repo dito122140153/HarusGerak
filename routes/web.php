@@ -41,6 +41,9 @@ Route::get('/bmi', function () {
     return Inertia::render('Bmi');
 })->middleware(['auth', 'verified'])->name('bmi');
 
+Route::get('/tracker', function () {
+    return Inertia::render('Tracker');
+})->middleware(['auth', 'verified'])->name('tracker');
 
 
 Route::middleware('auth')->group(function () {

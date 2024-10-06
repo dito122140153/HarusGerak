@@ -2,6 +2,7 @@ import React from "react";
 import trainingfoto from "../../assets/training-photo.png";
 import LogoHG from "!assets/logo-harusgerak.png";
 import { useAos } from "@/lib/hooks/useAos";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 const Intermediate = () => {
     useAos();
@@ -15,7 +16,8 @@ const Intermediate = () => {
     ];
 
     return (
-        <div className="w-full min-h-screen py-12 text-white px-72 bg-black/90">
+        <AuthenticatedLayout user={undefined}>
+            <div className="w-full min-h-screen py-12 text-white px-72 ">
             {/* Header Section */}
             <div className="flex flex-col items-start">
                 <h1 className="mb-2 text-[32px] font-bold text-left">
@@ -91,6 +93,8 @@ const Intermediate = () => {
                 </p>
             </div>
         </div>
+        </AuthenticatedLayout>
+        
     );
 };
 

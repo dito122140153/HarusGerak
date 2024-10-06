@@ -276,14 +276,14 @@ const Predashboard: React.FC = () => {
 
                         <PrimaryButton
                             className="font-extrabold text-[20px] mt-20 font-poppins mr-10"
-                            onClick={nextStep}
+                            onClick={() => route("dashboard")}
                         >
                             Continue
                         </PrimaryButton>
                     </div>
                 );
             default:
-                return <div>Unknown Step</div>;
+                return <div>href={route("dashboard")}</div>;
         }
     };
 

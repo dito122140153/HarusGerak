@@ -27,7 +27,7 @@ export default function Dashboard({ auth }) {
                                 <span className="inline-flex rounded-md">
                                     <button
                                         type="button"
-                                        className="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-[#896CFE] transition duration-150 ease-in-out bg-[#232323] border border-transparent rounded-md hover:text-gray-700 focus:outline-none"
+                                        className="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-[#896CFE] transition duration-150 ease-in-out bg-[#1d1d1d] border border-transparent rounded-md hover:text-gray-700 focus:outline-none"
                                     >
                                         {/* Icon for User */}
                                         <svg
