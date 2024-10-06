@@ -33,8 +33,6 @@ class ProfileController extends Controller
                 'age' => 'required',
                 'weight' => 'required',
                 'height' => 'required',
-                'physical_activity' => 'required',
-                'photo' => 'required',
             ]);
         try {
         // Create a new Profile instance
@@ -44,8 +42,6 @@ class ProfileController extends Controller
             'age' => $request->age,
             'weight' => $request->weight,
             'height' => $request->height,
-            'physical_activity' => $request->physical_activity,
-            'photo' => $request->photo,
         ]);
     } catch (\Exception $e) {
         return redirect()->route('dashboard');
@@ -64,8 +60,7 @@ class ProfileController extends Controller
         'age' => 'required|integer',
         'weight' => 'required|numeric',
         'height' => 'required|numeric',
-        'physical_activity' => 'required|string',
-        'photo' => 'sometimes|nullable|string', // Update photo jika tersedia
+ 
     ]);
 
     try {
@@ -79,8 +74,6 @@ class ProfileController extends Controller
                 'age' => $request->age,
                 'weight' => $request->weight,
                 'height' => $request->height,
-                'physical_activity' => $request->physical_activity,
-                'photo' => $request->photo ?? $profile->photo, // Jika tidak ada foto baru, gunakan foto yang lama
             ]);
         } else {
             // Jika profil tidak ditemukan, Anda dapat memutuskan apakah ingin membuat profil baru atau menampilkan error

@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade');
-            $table->enum('gender', ['m', 'f']);
+            $table->enum('gender', ['Male', 'Female']);
             $table->integer('age');
             $table->integer('weight');
             $table->integer('height');
-            $table->enum('physical_activity',['1', '2', '3']);
-            $table->string('photo');
             $table->timestamps();
         });
     }
