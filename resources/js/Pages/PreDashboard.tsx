@@ -4,6 +4,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import { AgeScroll } from "@/Components/AgeScroll";
 import { WeightScroll } from "@/Components/WeightScroll";
 import { HeightScroll } from "@/Components/HeightScroll";
+import axios from "axios";
 
 const Predashboard: React.FC = () => {
     const [step, setStep] = useState(1);
@@ -29,6 +30,15 @@ const Predashboard: React.FC = () => {
             ...formData,
             [name]: value,
         });
+    };
+
+    const submitForm = async () => {
+        try {
+            const response = await axios.post("/api/profile/update", formData);
+            console.log("Profile updated successfully", response.data);
+        } catch (error) {
+            console.error("Error updating profile:", error);
+        }
     };
 
     const renderStep = () => {
@@ -165,7 +175,10 @@ const Predashboard: React.FC = () => {
 
                         <PrimaryButton
                             className="font-extrabold text-[20px] mt-10 font-poppins"
-                            onClick={nextStep}
+                            onClick={() => {
+                                nextStep();
+                                submitForm();
+                            }}
                         >
                             Continue
                         </PrimaryButton>
@@ -202,7 +215,10 @@ const Predashboard: React.FC = () => {
 
                         <PrimaryButton
                             className="font-extrabold text-[20px] mt-44 font-poppins"
-                            onClick={nextStep}
+                            onClick={() => {
+                                nextStep();
+                                submitForm(); // Panggil fungsi untuk kirim data ke backend
+                            }}
                         >
                             Continue
                         </PrimaryButton>
@@ -276,14 +292,17 @@ const Predashboard: React.FC = () => {
 
                         <PrimaryButton
                             className="font-extrabold text-[20px] mt-20 font-poppins mr-10"
-                            onClick={() => route("dashboard")}
+                            onClick={() => {
+                                submitForm(); // Kirim data di step terakhir
+                                route("dashboard");
+                            }}
                         >
                             Continue
                         </PrimaryButton>
                     </div>
                 );
             default:
-                return <div>href={route("dashboard")}</div>;
+            // return <div>href={route("dashboard")}</div>;
         }
     };
 
