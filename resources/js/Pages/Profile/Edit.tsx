@@ -4,6 +4,7 @@ import UpdatePasswordForm from "./Partials/UpdatePasswordForm";
 import UpdateProfileInformationForm from "./Partials/UpdateProfileInformationForm";
 import { Head } from "@inertiajs/react";
 
+
 interface UserResponse {}
 
 export default function Edit({ auth, mustVerifyEmail, status, response }) {
@@ -24,6 +25,13 @@ export default function Edit({ auth, mustVerifyEmail, status, response }) {
 
             <div className="py-12">
                 <div className="mx-auto space-y-6 max-w-7xl sm:px-6 lg:px-8">
+                    <div className="absolute top-5 left-5">
+                        <a href="/dashboard" target="blank">
+                            <button className="text-[#E2F163] font-semibold">
+                                &lt; Back
+                            </button>
+                        </a>
+                    </div>
                     <div className="p-4 sm:p-8 sm:rounded-lg">
                         <UpdateProfileInformationForm
                             mustVerifyEmail={mustVerifyEmail}
