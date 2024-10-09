@@ -24,6 +24,23 @@ class ProfileController extends Controller
             'status' => session('status'),
         ]);
     }
+
+    public function show(Request $request): Response
+{
+    // Dapatkan profil pengguna berdasarkan user_id dari pengguna yang sedang login
+    $profile = Profile::where('user_id', Auth::user()->id)->first();
+
+    // Jika profil tidak ditemukan, kembalikan respon error atau alihkan ke halaman lain
+    if (!$profile) {
+        return redirect()->back()->withErrors(['error' => 'Profil tidak ditemukan']);
+    }
+
+    // Jika profil ditemukan, kirim data profil ke view
+    return Inertia::render('Profile/Edit', [
+        'response' => $profile,
+    ]);
+}
+
     public function store(Request $request): RedirectResponse
     {
         // Validate the incoming request data
@@ -56,6 +73,8 @@ class ProfileController extends Controller
 {
     // Validasi input
     $request->validate([
+        'name' => 'required',
+        'email' => 'required',
         'gender' => 'required',
         'age' => 'required|integer',
         'weight' => 'required|numeric',
@@ -85,7 +104,8 @@ class ProfileController extends Controller
     }
 
     // Redirect dengan pesan sukses
-    return redirect()->route('dashboard')->with('status', 'Profil berhasil diperbarui');
+    return redirect()->back()->with('status', 'Profil berhasil diperbarui');
+
 }
 
     /**

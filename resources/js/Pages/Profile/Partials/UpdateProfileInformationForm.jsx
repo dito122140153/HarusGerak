@@ -1,28 +1,40 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Link, useForm, usePage } from '@inertiajs/react';
-import { Transition } from '@headlessui/react';
+import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import { Link, useForm, usePage } from "@inertiajs/react";
+import { Transition } from "@headlessui/react";
 
-export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
+export default function UpdateProfileInformation({
+    mustVerifyEmail,
+    status,
+    className = "",
+    profile,
+}) {
     const user = usePage().props.auth.user;
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
-        name: user.name,
-        email: user.email,
-    });
+    const { data, setData, patch, errors, processing, recentlySuccessful } =
+        useForm({
+            name: user.name,
+            email: user.email,
+            gender: profile.gender,
+            age: profile.age,
+            weight: profile.weight,
+            height: profile.height,
+        });
 
     const submit = (e) => {
         e.preventDefault();
 
-        patch(route('profile.update'));
+        patch(route("profile.update"));
     };
 
     return (
         <section className={className}>
             <header>
-                <h2 className="text-lg font-medium text-gray-900">Profile Information</h2>
+                <h2 className="text-lg font-medium text-gray-900">
+                    Profile Information
+                </h2>
 
                 <p className="mt-1 text-sm text-gray-600">
                     Update your account's profile information and email address.
@@ -37,7 +49,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         id="name"
                         className="block w-full mt-1"
                         value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
+                        onChange={(e) => setData("name", e.target.value)}
                         required
                         isFocused
                         autoComplete="name"
@@ -54,24 +66,24 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         type="email"
                         className="block w-full mt-1"
                         value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
+                        onChange={(e) => setData("email", e.target.value)}
                         required
                         autoComplete="username"
                     />
 
                     <InputError className="mt-2" message={errors.email} />
                 </div>
-                 
+
                 {/* jenis kelamin */}
                 <div>
                     <InputLabel htmlFor="gender" value="Gender" />
 
                     <TextInput
-                        id="email"
-                        type="email"
+                        id="gender"
+                        type="gender"
                         className="block w-full mt-1"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
+                        value={data.gender}
+                        onChange={(e) => setData("gender", e.target.value)}
                         required
                         autoComplete="username"
                     />
@@ -84,11 +96,11 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     <InputLabel htmlFor="age" value="Age" />
 
                     <TextInput
-                        id="email"
-                        type="email"
+                        id="age"
+                        type="age"
                         className="block w-full mt-1"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
+                        value={data.age}
+                        onChange={(e) => setData("age", e.target.value)}
                         required
                         autoComplete="username"
                     />
@@ -101,42 +113,41 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     <InputLabel htmlFor="wight" value="Weight" />
 
                     <TextInput
-                        id="email"
-                        type="email"
+                        id="weight"
+                        type="weight"
                         className="block w-full mt-1"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
+                        value={data.weight}
+                        onChange={(e) => setData("weight", e.target.value)}
                         required
                         autoComplete="username"
                     />
 
                     <InputError className="mt-2" message={errors.email} />
                 </div>
-
 
                 {/* tinggi badan */}
                 <div>
                     <InputLabel htmlFor="height" value="Height" />
 
                     <TextInput
-                        id="email"
-                        type="email"
+                        id="height"
+                        type="height"
                         className="block w-full mt-1"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
+                        value={data.height}
+                        onChange={(e) => setData("height", e.target.value)}
                         required
                         autoComplete="username"
                     />
 
                     <InputError className="mt-2" message={errors.email} />
                 </div>
-                
+
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
                         <p className="mt-2 text-sm text-gray-800">
                             Your email address is unverified.
                             <Link
-                                href={route('verification.send')}
+                                href={route("verification.send")}
                                 method="post"
                                 as="button"
                                 className="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -145,9 +156,10 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                             </Link>
                         </p>
 
-                        {status === 'verification-link-sent' && (
+                        {status === "verification-link-sent" && (
                             <div className="mt-2 text-sm font-medium text-green-600">
-                                A new verification link has been sent to your email address.
+                                A new verification link has been sent to your
+                                email address.
                             </div>
                         )}
                     </div>

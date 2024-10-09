@@ -1,27 +1,41 @@
 import { Training } from "@/Components/Training";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import Dropdown from "@/Components/Dropdown"; // Import Dropdown
+import Dropdown from "@/Components/Dropdown";
 import LogoHG from "!assets/logo-harusgerak.png";
 import { useAos } from "@/lib/hooks/useAos";
 
-export default function Dashboard({ auth }) {
+export default function Dashboard({ auth }: { auth: any }) {
     useAos();
+
+    // Mengambil tanggal saat ini dengan format "Monday, Jun 12"
+    const today = new Date();
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: "long",
+        month: "short",
+        day: "numeric"
+    };
+    const formattedDate = today.toLocaleDateString("en-US", options);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
-                <div className="flex items-center justify-between text-white">
-                    {" "}
+                <div
+                    className="relative flex items-center justify-between -mb-2 text-white"
+                    data-aos="fade-down"
+                    data-aos-duration="1000"
+                >
                     {/* Flex digunakan untuk mengatur elemen sejajar */}
                     <div>
-                        <h1 className="text-[32px] font-semibold leading-tight font-poppins text-[#896CFE] uppercase">
+                        <h1 className="text-[32px] font-extrabold leading-tight font-poppins text-[#896CFE] capitalize">
                             Hi, {auth.user.name}
                         </h1>
-                        <p className="text-sm text-white/50">MONDAY, JUN 12</p>
+                        {/* Tanggal realtime */}
+                        <p className="text-sm uppercase text-white/50">{formattedDate}</p>
                     </div>
                     {/* Dropdown for Profile and Log Out */}
-                    <div>
+                    <div className="relative z-10">
                         <Dropdown>
                             <Dropdown.Trigger>
                                 <span className="inline-flex rounded-md">
@@ -56,7 +70,7 @@ export default function Dashboard({ auth }) {
                             </Dropdown.Trigger>
 
                             <Dropdown.Content>
-                                <Dropdown.Link href={route("profile.edit")}>
+                                <Dropdown.Link href={"/profile"}>
                                     Profile
                                 </Dropdown.Link>
                                 <Dropdown.Link
@@ -72,29 +86,48 @@ export default function Dashboard({ auth }) {
                 </div>
             }
         >
-            <div className="px-8 py-6 mx-auto text-white max-w-7xl">
-                <h1 className="font-bold font-poppins text-[30px]">Find Your Fitness Fit!</h1>
-                <p className="font-semibold font-poppins text-[16px]">Gain Muscle, Get fitter, Lose fat</p>
-                <p className="font-light font-poppins text-[14px] mt-4 text-white/60">Select a program that matches your strength level and training style.</p>
+            <div
+                className="z-0 px-8 py-6 mx-auto mt-10 text-white max-w-7xl"
+                data-aos="fade-down"
+                data-aos-duration="1000"
+            >
+                <h1 className="font-bold font-poppins text-[30px]">
+                    Find Your Fitness Fit!
+                </h1>
+                <p className="font-semibold font-poppins text-[16px] ">
+                    Gain Muscle, Get fitter, Lose fat
+                </p>
+                <p className="font-light font-poppins text-[14px] mt-4 text-white/60">
+                    Select a program that matches your strength level and
+                    training style.
+                </p>
             </div>
-            <Head title="Dashboard" />
+            <Head title="HarusGerak" />
 
             <div className="flex flex-col items-center justify-center px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div className="container px-4 mx-auto lg:px-8">
                     {/* Training Section */}
-                    <div className="mt-8">
+                    <div
+                        className="mt-2"
+                        data-aos="zoom-out-up"
+                        data-aos-duration="1000"
+                    >
                         <Training />
                     </div>
                 </div>
 
-                <p className="mt-10 text-white font-poppins">
+                <p
+                    className="mt-10 text-white font-poppins"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
+                >
                     “Get your body moving, let your soul dance”
                 </p>
 
                 <div
                     className="mt-8"
-                    data-aos="zoom-in"
-                    data-aos-duration="1500"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
                 >
                     <img
                         src={LogoHG}
@@ -103,8 +136,8 @@ export default function Dashboard({ auth }) {
                     />
                 </div>
                 <div
-                    data-aos="zoom-in"
-                    data-aos-duration="1500"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
                     className="mb-10 text-[#E2F163] text-[40px] font-extrabold italic "
                 >
                     HARUS<span className="font-normal">GERAK</span>

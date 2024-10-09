@@ -1,16 +1,26 @@
 import { useState } from "react";
 import NavLink from "@/Components/NavLink";
 import { Link } from "@inertiajs/react";
+import { useAos } from "@/lib/hooks/useAos";
 
 export default function Authenticated({ user, header, children }) {
+    useAos();
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
 
     return (
-        <div className="min-h-screen bg-[#1d1d1d] flex">
+        <div className=" min-h-screen bg-[#1d1d1d] flex">
             {/* Sidebar */}
-            <nav className="absolute left-0 p-4 transform -translate-y-1/2 bg-[#333333] rounded-r-lg w-28 top-1/2 border-r-8 border-[#896CFE] z-10">
-                <div className="flex flex-col h-full">
+            <nav
+                className="fixed left-0 p-4 transform -translate-y-1/2 bg-[#333333] rounded-r-lg w-28 top-1/3 border-r-8 border-[#896CFE] z-10"
+                data-aos="zoom-out"
+                data-aos-duration="1000"
+            >
+                <div
+                    className="flex flex-col h-full"
+                    data-aos="fade-right"
+                    data-aos-duration="1000"
+                >
                     <div className="flex items-center justify-center"></div>
                     {/* Menu Links */}
                     <div className="flex flex-col space-y-8 place-items-center font-poppins">
@@ -19,14 +29,42 @@ export default function Authenticated({ user, header, children }) {
                             active={
                                 route().current("dashboard") ||
                                 route().current("beginner") ||
+                                route().current("beginner.abs-training") ||
+                                route().current("beginner.legs-training") ||
+                                route().current("beginner.arms-training") ||
+                                route().current("beginner.chest-training") ||
                                 route().current("intermediate") ||
-                                route().current("advance")
+                                route().current("intermediate.abs-training") ||
+                                route().current("intermediate.legs-training") ||
+                                route().current("intermediate.arms-training") ||
+                                route().current(
+                                    "intermediate.chest-training"
+                                ) ||
+                                route().current("advance") ||
+                                route().current("advance.abs-training") ||
+                                route().current("advance.legs-training") ||
+                                route().current("advance.arms-training") ||
+                                route().current("advance.chest-training")
                             }
                             className={`block py-2 pr-4 text-sm ${
                                 route().current("dashboard") ||
                                 route().current("beginner") ||
+                                route().current("beginner.abs-training") ||
+                                route().current("beginner.legs-training") ||
+                                route().current("beginner.arms-training") ||
+                                route().current("beginner.chest-training") ||
                                 route().current("intermediate") ||
-                                route().current("advance")
+                                route().current("intermediate.abs-training") ||
+                                route().current("intermediate.legs-training") ||
+                                route().current("intermediate.arms-training") ||
+                                route().current(
+                                    "intermediate.chest-training"
+                                ) ||
+                                route().current("advance") ||
+                                route().current("advance.abs-training") ||
+                                route().current("advance.legs-training") ||
+                                route().current("advance.arms-training") ||
+                                route().current("advance.chest-training")
                                     ? "text-[#896CFE]"
                                     : ""
                             }`}

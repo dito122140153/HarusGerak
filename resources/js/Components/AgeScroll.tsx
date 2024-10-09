@@ -1,40 +1,40 @@
 import * as React from "react";
-
-import { Card, CardContent } from "@/Components/ui/card";
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
     type CarouselApi,
 } from "@/Components/ui/carousel";
 
-export function AgeScroll() {
+interface AgeScrollProps {
+    onAgeChange: (age: number) => void;
+}
+
+export function AgeScroll({ onAgeChange }: AgeScrollProps) {
     const [api, setApi] = React.useState<CarouselApi>();
     const [current, setCurrent] = React.useState(0);
-    const [count, setCount] = React.useState(0);
 
     React.useEffect(() => {
         if (!api) {
             return;
         }
 
-        setCount(api.scrollSnapList().length);
         setCurrent(api.selectedScrollSnap() + 1);
+        onAgeChange(api.selectedScrollSnap() + 1);
 
         api.on("select", () => {
-            setCurrent(api.selectedScrollSnap() + 1);
+            const newAge = api.selectedScrollSnap() + 1;
+            setCurrent(newAge);
+            onAgeChange(newAge);
         });
     }, [api]);
 
     return (
         <div className="mx-auto text-center">
             <div className="relative flex flex-col items-center">
-                {/* Display current number */}
-                <div className="text-[64px] font-bold text-white">{current}</div>
-
-                {/* Triangle Icon under the current number */}
+                <div className="text-[64px] font-bold text-white">
+                    {current}
+                </div>
                 <div className="mt-1">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -49,19 +49,15 @@ export function AgeScroll() {
                     </svg>
                 </div>
 
-                {/* Carousel */}
                 <div className="relative w-screen mt-4 bg-[#B3A0FF]">
-                    <div className="cursor-none pointer-events-none absolute -translate-x-1/2 -translate-y-1 left-1/2 h-[105%] border-l-4 border-r-4 z-50 border-white w-20">
-                        
-                    </div>
                     <Carousel
                         setApi={setApi}
                         className="w-full max-w-xs mx-auto"
                         opts={{
-                            dragFree: true
+                            dragFree: true,
                         }}
                     >
-                        <CarouselContent className="flex w-full ">
+                        <CarouselContent className="flex w-full">
                             {Array.from({ length: 100 }).map((_, index) => (
                                 <CarouselItem
                                     key={index}
@@ -69,10 +65,10 @@ export function AgeScroll() {
                                 >
                                     <span
                                         className={`my-10 text-[40px] font-semibold ${
-                                            current == index - 1
+                                            current === index - 1
                                                 ? "text-white"
-                                                : current == index - 2 ||
-                                                  current == index
+                                                : current === index ||
+                                                  current === index - 2
                                                 ? "text-[#232323]"
                                                 : "text-[#232323] text-opacity-50"
                                         }`}

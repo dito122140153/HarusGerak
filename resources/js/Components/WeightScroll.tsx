@@ -1,30 +1,32 @@
 import * as React from "react";
 
-import { Card, CardContent } from "@/Components/ui/card";
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
     type CarouselApi,
 } from "@/Components/ui/carousel";
 
-export function WeightScroll() {
+interface WeightScrollProps {
+    onWeightChange: (age: number) => void;
+}
+
+export function WeightScroll({ onWeightChange }: WeightScrollProps) {
     const [api, setApi] = React.useState<CarouselApi>();
     const [current, setCurrent] = React.useState(0);
-    const [count, setCount] = React.useState(0);
 
     React.useEffect(() => {
         if (!api) {
             return;
         }
 
-        setCount(api.scrollSnapList().length);
         setCurrent(api.selectedScrollSnap() + 1);
+        onWeightChange(api.selectedScrollSnap() + 1);
 
         api.on("select", () => {
-            setCurrent(api.selectedScrollSnap() + 1);
+            const newAge = api.selectedScrollSnap() + 1;
+            setCurrent(newAge);
+            onWeightChange(newAge);
         });
     }, [api]);
 

@@ -3,6 +3,7 @@ import HarusGerak from "../../assets/bg-default.png";
 import LogoHG from "!assets/logo-harusgerak.png";
 import { useAos } from "@/lib/hooks/useAos";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head } from "@inertiajs/react";
 
 const activities = [
     { name: "Push Up", MET: 6.5 },
@@ -47,6 +48,7 @@ const Tracker: React.FC = () => {
 
     return (
         <AuthenticatedLayout user={undefined}>
+            <Head title="HarusGerak" />
             <div className="flex items-center justify-center min-h-screen">
                 <img
                     id="background"
@@ -54,7 +56,11 @@ const Tracker: React.FC = () => {
                     src={HarusGerak}
                     alt="Background"
                 />
-                <div className="z-10 w-full max-w-md p-8 bg-[#222226] rounded-lg shadow-lg font-poppins">
+                <div
+                    className="z-10 w-full max-w-md p-8 bg-[#2222] rounded-lg shadow-lg font-poppins backdrop-contrast-75"
+                    data-aos="zoom-in"
+                    data-aos-duration="1500"
+                >
                     <h1 className="mb-6 text-2xl font-bold text-center text-[#896CFE]">
                         Calories Burned Calculator
                     </h1>

@@ -1,40 +1,75 @@
 import React from "react";
-import trainingfoto from "../../assets/training-photo.png";
+import trainingfoto from "../../assets/beginner.png";
+import abs from "../../assets/abs.jpeg";
+import chest from "../../assets/chest.jpeg";
+import arms from "../../assets/arms.jpeg";
+import legs from "../../assets/legs.jpeg";
 import LogoHG from "!assets/logo-harusgerak.png";
 import { useAos } from "@/lib/hooks/useAos";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head } from "@inertiajs/react";
 
 const Beginner = ({ auth }) => {
     useAos();
 
     // Contoh data card dengan URL sesuai halaman tujuan
     const cardData = [
-        { title: "Abs training", url: "/abs-training" },
-        { title: "Chest training", url: "/chest-training" },
-        { title: "Arms training", url: "/arms-training" },
-        { title: "Legs training", url: "/legs-training" },
+        {
+            title: "Abs training",
+            desc: "lorem ipsum",
+            url: "/beginner/abs-training",
+            foto: abs
+        },
+        {
+            title: "Chest training",
+            desc: "lorem ipsum",
+            url: "/beginner/chest-training",
+            foto: chest
+        },
+        {
+            title: "Arms training",
+            desc: "lorem ipsum",
+            url: "/beginner/arms-training",
+            foto: arms
+        },
+        {
+            title: "Legs training",
+            desc: "lorem ipsum",
+            url: "/beginner/legs-training",
+            foto: legs
+        },
     ];
 
     return (
         <AuthenticatedLayout user={undefined}>
+            <Head title="HarusGerak" />
             <div className="w-full min-h-screen py-12 text-white px-72 ">
                 {/* Header Section */}
-                <div className="flex flex-col items-start">
+                <div
+                    className="flex flex-col items-start"
+                    data-aos="fade-right"
+                    data-aos-duration="1500"
+                >
                     <h1 className="mb-2 text-[32px] font-bold text-left">
-                        Start Here: Our Beginner's Fitness Program Is Perfect
-                        For Those New To Exercise.
+                        Start Here: Our beginner's fitness program is perfect
+                        for those new to exercise.
                     </h1>
-                    <p className="max-w-md text-left text-[20px] text-gray-400 font-light">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
+                    <p className="max-w-2xl text-justify text-[20px] text-gray-400 font-light">
+                        Mulai perjalanan kebugaranmu dengan program Beginner.
+                        Latihan-latihan ringan dan terstruktur akan membantumu
+                        membangun dasar kekuatan dan fleksibilitas. Sempurna
+                        untuk mereka yang ingin memulai gaya hidup aktif.
                     </p>
                 </div>
 
                 {/* Card Section */}
                 <div className="flex justify-between gap-8 mt-10">
                     {/* Left Cards */}
-                    <div className="grid grid-cols-3 gap-12">
+                    <div
+                        className="grid grid-cols-2 gap-12"
+                        data-aos="zoom-in"
+                        data-aos-duration="1500"
+                    >
                         {cardData.map((card, index) => (
                             <a
                                 href={card.url} // Menggunakan href untuk navigasi
@@ -42,7 +77,7 @@ const Beginner = ({ auth }) => {
                                 className="block p-4 transition duration-300 bg-gray-800 rounded-lg shadow-lg hover:shadow-xl"
                             >
                                 <img
-                                    src={trainingfoto}
+                                    src={card.foto}
                                     alt={card.title}
                                     className="w-[130px] h-[100px] rounded-lg object-cover mx-auto"
                                 />
@@ -50,14 +85,18 @@ const Beginner = ({ auth }) => {
                                     {card.title}
                                 </h2>
                                 <p className="text-center text-gray-400">
-                                    Lorem ipsum
+                                    {card.desc}
                                 </p>
                             </a>
                         ))}
                     </div>
 
                     {/* Right Section with Image */}
-                    <div className="flex flex-col items-center">
+                    <div
+                        className="flex flex-col items-center mt-2"
+                        data-aos="zoom-in"
+                        data-aos-duration="1500"
+                    >
                         <img
                             src={trainingfoto}
                             alt="Beginner Program"

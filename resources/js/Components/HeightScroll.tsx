@@ -10,23 +10,47 @@ import {
     type CarouselApi,
 } from "@/Components/ui/carousel";
 
-export function HeightScroll() {
+interface HeightScrollProps {
+    onHeightChange: (age: number) => void;
+}
+
+export function HeightScroll({ onHeightChange }: HeightScrollProps) {
     const [api, setApi] = React.useState<CarouselApi>();
-    const [current, setCurrent] = React.useState(100);
-    const [count, setCount] = React.useState(0);
+    const [current, setCurrent] = React.useState(0);
 
     React.useEffect(() => {
         if (!api) {
             return;
         }
 
-        setCount(api.scrollSnapList().length);
         setCurrent(api.selectedScrollSnap() + 100);
+        onHeightChange(api.selectedScrollSnap() + 100);
 
         api.on("select", () => {
-            setCurrent(api.selectedScrollSnap() + 100);
+            const newAge = api.selectedScrollSnap() + 100;
+            setCurrent(newAge);
+            onHeightChange(newAge);
         });
     }, [api]);
+
+
+// export function HeightScroll() {
+//     const [api, setApi] = React.useState<CarouselApi>();
+//     const [current, setCurrent] = React.useState(100);
+//     const [count, setCount] = React.useState(0);
+
+//     React.useEffect(() => {
+//         if (!api) {
+//             return;
+//         }
+
+//         setCount(api.scrollSnapList().length);
+//         setCurrent(api.selectedScrollSnap() + 100);
+
+//         api.on("select", () => {
+//             setCurrent(api.selectedScrollSnap() + 100);
+//         });
+//     }, [api]);
 
     return (
         <div className="max-w-xs mx-auto ">

@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Link } from "@inertiajs/react";
-import trainingfoto from "../../assets/training-photo.png";
+import beginner from "../../assets/beginner.png";
+import intermediate from "../../assets/intermediate.png";
+import advance from "../../assets/advance.png";
 
 import { Card, CardContent } from "@/Components/ui/card";
 import {
@@ -15,18 +17,21 @@ export function Training() {
     const trainingLevels = [
         {
             title: "Beginner",
-            description: "Introduction to basics",
+            description: "For those just starting their fitness journey.",
             link: "/beginner",
+            foto: beginner
         },
         {
             title: "Intermediate",
-            description: "Building on fundamentals",
+            description: "For those with some experience.",
             link: "/intermediate",
+            foto: intermediate
         },
         {
             title: "Advanced",
-            description: "Mastering complex concepts",
+            description: "For those with a high level of fitness.",
             link: "/advance",
+            foto: advance
         },
     ];
 
@@ -39,10 +44,10 @@ export function Training() {
                         className="pl-1 md:basis-1/2 lg:basis-1/3"
                     >
                         <div className="p-1">
-                            <Link href={level.link}>
+                            <Link href={level.link}>    
                                 <Card className="rounded-md shadow-lg cursor-pointer">
                                     <img
-                                        src={trainingfoto}
+                                        src={level.foto}
                                         alt="trainingfoto"
                                         className="object-cover w-full h-48 rounded-t-md "
                                     />

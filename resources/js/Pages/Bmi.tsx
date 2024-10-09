@@ -3,7 +3,7 @@ import { useState } from "react";
 import HarusGerak from "../../assets/bg-default.png";
 import LogoHG from "!assets/logo-harusgerak.png";
 import { useAos } from "@/lib/hooks/useAos";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function Bmi() {
@@ -88,6 +88,7 @@ export default function Bmi() {
 
     return (
         <AuthenticatedLayout user={undefined}>
+            <Head title="HarusGerak" />
             <div className="relative flex flex-col items-center justify-center min-h-screen text-gray-100">
                 {/* <div className="absolute z-10 top-5 left-5">
                     <Link href={route("dashboard")}>
@@ -104,7 +105,11 @@ export default function Bmi() {
                     alt="Background"
                 />
 
-                <div className="relative z-10 w-full max-w-md bg-[#222226]/90 p-8 rounded-lg shadow-md backdrop-blur-sm">
+                <div
+                    className="relative z-10 w-full max-w-md bg-[#2222] p-8 rounded-lg  shadow-md backdrop-contrast-75"
+                    data-aos="zoom-in"
+                    data-aos-duration="1500"
+                >
                     <h2 className="text-[24px] font-bold mb-6 text-[#896CFE] text-center font-poppins">
                         BMI Calculator
                     </h2>
@@ -148,12 +153,12 @@ export default function Bmi() {
                             src={LogoHG}
                             alt="Logo HarusGerak"
                             className="w-48 h-auto"
-                            data-aos="zoom-in"
+                            data-aos="fade-up"
                             data-aos-duration="1500"
                         />
                     </div>
                     <p
-                        data-aos="zoom-in"
+                        data-aos="fade-up"
                         data-aos-duration="1500"
                         className="mt-4 text-2xl text-[#E2F163] text-[40px] font-extrabold italic"
                     >
@@ -164,7 +169,15 @@ export default function Bmi() {
                 {/* Modal */}
                 {isModalOpen && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-                        <div className="w-full max-w-lg p-8 text-center bg-[#232323] rounded-lg shadow-lg">
+                        <div className="w-full max-w-lg p-8 text-center bg-[#232323] rounded-lg shadow-lg relative">
+                            {/* Close Button */}
+                            <button
+                                className="absolute text-xl font-bold text-white top-3 right-3"
+                                onClick={toggleModal}
+                            >
+                                &times;
+                            </button>
+
                             <h3
                                 className={`text-2xl font-bold mb-4 font-poppins uppercase ${
                                     status === "Obesitas"
@@ -179,6 +192,7 @@ export default function Bmi() {
                                 {status}
                             </h3>
 
+                            {/* Modal Content */}
                             <div className="mb-4 text-center">
                                 <p className="text-lg font-semibold text-white font-poppins">
                                     Tinggi (cm): <span>{height}</span>

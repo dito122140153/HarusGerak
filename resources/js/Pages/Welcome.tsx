@@ -94,9 +94,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             )}
                         </header>
 
-                        <footer className="py-8 text-sm text-center text-white dark:text-white/70">
-                            Laravel v{laravelVersion} (PHP v{phpVersion})
-                        </footer>
+                        
                     </div>
                 </div>
             </div>

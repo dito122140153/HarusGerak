@@ -5,6 +5,7 @@ import { AgeScroll } from "@/Components/AgeScroll";
 import { WeightScroll } from "@/Components/WeightScroll";
 import { HeightScroll } from "@/Components/HeightScroll";
 import { Link } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 
 const Predashboard: React.FC = () => {
     const [step, setStep] = useState(1);
@@ -24,9 +25,49 @@ const Predashboard: React.FC = () => {
         setStep((prevStep) => prevStep - 1);
     };
 
-    const dashboard = () => {
-        route("dashboard");
+    // const dashboard = () => {
+    //     router.visit(route("dashboard"));
+    // };
+
+    const handleAgeChange = (age: number) => {
+        setFormData({ ...formData, age: age.toString() });
+        console.log(age);
     };
+
+    const handleWeightChange = (weight: number) => {
+        setFormData({ ...formData, weight: weight.toString() });
+        console.log(weight);
+    };
+
+    const handleHeightChange = (height: number) => {
+        setFormData({ ...formData, height: height.toString() });
+        console.log(height);
+    };
+
+    const submitData = () => {
+        // Log untuk melihat isi formData
+        console.log("formData:", formData);
+
+        // Validasi setiap field
+        if (
+            !formData.gender ||
+            !formData.age ||
+            !formData.weight ||
+            !formData.height
+        ) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        // Jika lolos validasi, kirim data
+        router.post("profile.store", formData, {
+            onSuccess: () => {
+                // router.visit("/dashboard");
+            },
+            onError: (errors) => console.log(errors),
+        });
+    };
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({
@@ -87,9 +128,8 @@ const Predashboard: React.FC = () => {
 
                         <div className="w-full bg-[#B3A0FF] h-[150px] py-3 px-5 text-center mb-6 mt-10">
                             <p className="w-full py-6 justify-center text-center text-[22px] text-black font-poppins ">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.
+                                Your gender will be part of your personalized
+                                profile information.
                             </p>
                         </div>
 
@@ -204,15 +244,14 @@ const Predashboard: React.FC = () => {
 
                         <div className="w-full h-[150px] py-3 px-5 text-center mb-6 rounded-lg ">
                             <p className="w-full py-6 justify-center text-center text-[22px] text-white font-poppins ">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.
+                                Your age helps us to create a more accurate
+                                baseline for tracking your fitness journey.
                             </p>
                         </div>
 
                         {/* Age Selection */}
                         <div className="-mt-14">
-                            <AgeScroll />
+                            <AgeScroll onAgeChange={handleAgeChange} />
                         </div>
 
                         <PrimaryButton
@@ -243,15 +282,14 @@ const Predashboard: React.FC = () => {
 
                         <div className="w-full h-[150px] py-3 px-5 text-center mb-6 rounded-lg ">
                             <p className="w-full py-6 justify-center text-center text-[22px] text-white font-poppins ">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.
+                                Your weight is kept private and is only used to
+                                provide you with a more personalized experience.
                             </p>
                         </div>
 
                         {/* Weight Selection */}
                         <div className="-mt-14">
-                            <WeightScroll />
+                            <WeightScroll onWeightChange={handleWeightChange} />
                         </div>
 
                         <PrimaryButton
@@ -280,30 +318,21 @@ const Predashboard: React.FC = () => {
 
                         <div className="w-full h-[150px] py-3 px-5 text-center mb-6 rounded-lg ">
                             <p className="w-full py-6 justify-center text-center text-[22px] text-white font-poppins ">
-                                Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.
+                                Your height is used to ensure the accuracy of
+                                our data and protect your privacy.
                             </p>
                         </div>
 
                         {/* Height Selection */}
                         <div className="-mt-14">
-                            <HeightScroll />
+                            <HeightScroll onHeightChange={handleHeightChange} />
                         </div>
-                        {/* <PrimaryButton
-                            className="font-extrabold text-[20px] mt-44 font-poppins"
-                            onClick={nextStep}
+                        <PrimaryButton
+                            className="font-extrabold text-[20px] mt-20 font-poppins"
+                            onClick={submitData}
                         >
                             Continue
-                        </PrimaryButton> */}
-
-                        {/* <Link
-                            href={route("dashboard")}
-                            className="font-extrabold text-[20px] mt-20 font-poppins mr-10"
-                            
-                        >
-                            Continue
-                        </Link> */}
+                        </PrimaryButton>
                     </div>
                 );
         }
